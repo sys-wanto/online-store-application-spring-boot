@@ -23,7 +23,7 @@ public class Customers implements Serializable {
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "customer_id", insertable = false, updatable = false, nullable = false)
   private UUID customer_id;
-
+  
   @Column(name = "name", insertable = true, updatable = true, nullable = false)
   private String name;
 
