@@ -1,6 +1,5 @@
 package com.syswantob1.onlinestoreapps.models;
 
-
 public class customer {
 
   private String name;

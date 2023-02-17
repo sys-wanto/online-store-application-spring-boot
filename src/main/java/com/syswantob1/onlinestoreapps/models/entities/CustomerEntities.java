@@ -10,12 +10,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "tbl_customers")
-public class Customers implements Serializable {
+public class CustomerEntities implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -23,29 +25,32 @@ public class Customers implements Serializable {
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "customer_id", insertable = false, updatable = false, nullable = false)
   private UUID customer_id;
-  
-  @Column(name = "name", insertable = true, updatable = true, nullable = false)
+
+  @NotEmpty(message = "Nama tidak boleh kosong")
+  @Column(name = "name", insertable = true, updatable = true, nullable = false, length = 100)
   private String name;
 
-  @Column(name = "email", insertable = true, updatable = true, nullable = false)
+  @NotEmpty(message = "email tidak boleh kosong")
+  @Email(message = "Harus format email")
+  @Column(name = "email", insertable = true, updatable = true, nullable = false, length = 100, unique = true)
   private String email;
 
-  @Column(name = "password", insertable = true, updatable = true, nullable = false)
+  @NotEmpty(message = "password tidak boleh kosong")
+  @Column(name = "password", insertable = true, updatable = true, nullable = false, length = 100)
   private String password;
 
-  @UpdateTimestamp
+  @CreationTimestamp
   @Column(name = "registration_date", insertable = false, updatable = false, nullable = false)
   private Timestamp registration_date;
 
-  public Customers() {
+  public CustomerEntities() {
   }
 
-  public Customers(UUID customer_id, String name, String email, String password, Timestamp registration_date) {
+  public CustomerEntities(UUID customer_id, String name, String email, String password) {
     this.customer_id = customer_id;
     this.name = name;
     this.email = email;
     this.password = password;
-    this.registration_date = registration_date;
   }
 
   public UUID getCustomer_id() {
@@ -82,10 +87,6 @@ public class Customers implements Serializable {
 
   public void setPassword(String password) {
     this.password = password;
-  }
-
-  public void setRegistration_date(Timestamp registration_date) {
-    this.registration_date = registration_date;
   }
 
 }

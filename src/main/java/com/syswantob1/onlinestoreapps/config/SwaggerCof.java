@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -21,7 +22,12 @@ public class SwaggerCof {
         .apis(RequestHandlerSelectors.basePackage("com.syswantob1.onlinestoreapps.controllers"))
         .paths(PathSelectors.any())
         .build()
-        .apiInfo(new ApiInfoBuilder().title("Dev customers").description("Dev customers api").build());
+        .apiInfo(apiInfo());
   }
 
+  private ApiInfo apiInfo() {
+    ApiInfo apiInfo = new ApiInfoBuilder().title("Online Store API").description("Doc Tech Online Store API")
+        .version("v0.1").build();
+    return apiInfo;
+  }
 }
